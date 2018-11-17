@@ -10,14 +10,16 @@ promise.once('open', function(){
 
 let repoSchema = mongoose.Schema({
   username: String,
-  repos: [String]
+  repoName: String,
+  repos: [String],
+
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
 
 //this is how to save a query to mongoDB
 // var obj = new Repo({
-//   'username': 'Maria',
+//   'username': 'LEONOR',
 //   'repos': ['bb']
 // });
 
@@ -25,10 +27,17 @@ let Repo = mongoose.model('Repo', repoSchema);
 //   if (err) console.log('err');
 // });
 
-let save = (person, err) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
+let save = (data, err) => {
+
+  // console.log('this is data', data)
+  var newUser = new Repo ({
+    'username': data.owner.login,
+    'repos': data.owner.html_url
+  })
+
+  newUser.save((err) => {
+    if(err) console.log('err');
+  });
 };
 
 

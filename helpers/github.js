@@ -1,6 +1,6 @@
 const request = require('request');
 const config = require('../config.js');
-
+const mongo = require('../database');
 
 let getReposByUsername = (username, cb) => {
   let options = {
@@ -12,8 +12,26 @@ let getReposByUsername = (username, cb) => {
   };
 
   request.get(options, (error, response, body) => {
-    return cb(error, body);
+    console.log('body');
+    if (error) {
+      console.log('error line 17')
+    }
+    return cb(null, body);
   });
 };
 
+
+let savingToDatabase = (results) => {
+  //loop through results
+  var repos = JSON.parse(results);
+  // console.log(typeof results);
+   for (let i = 0; i < repos.length; i++){
+     mongo.save(repos[i]);
+   }
+  /// call mongo.save(results[i]);
+}
+
+
+
 module.exports.getReposByUsername = getReposByUsername;
+module.exports.savingToDatabase = savingToDatabase;

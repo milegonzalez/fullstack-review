@@ -15,48 +15,33 @@ class App extends React.Component {
 
   search(term) {
     console.log(`${term} was searched`);
-    // how do I send this term to my github.js file
-    // this.setState({
-    //   value: term
-    // });
 
     $.ajax({
       type: "POST",
       url: '/repos',
       data: { term },
-      success: function (data) {
-        console.log('username sent!', data)
-      },
       dataType: 'text'
     });
   }
 
   componentDidMount() {
     //should I fetch users from the server?
-    fetch("/repos")
-      .then(res => res.json())
-      .then(
-        // console.log(result)
-        (result) => {
-          this.setState({
-            repos: result.repos
-          });
-        },
-        (error) => {
-          this.setState({
-            error
-          });
-        }
-      )
+    // fetch("/repos")
+    //   .then(res => res.json())
+    //   .then(
+    //     // console.log(result)
+    //     (result) => {
+    //       this.setState({
+    //         repos: result.repos
+    //       });
+    //     },
+    //     (error) => {
+    //       this.setState({
+    //         error
+    //       });
+    //     }
+    //   )
   }
-
-  //create a method that when the button Search is clicked, sends the user name to the server.
-  //  sendUserToServer(){
-  //   //need to take this:
-  //   //  this.state.value;
-  //   //and send to the server.
-  //   $.ajax()
-  //  }
 
 
   render() {
